@@ -7,19 +7,39 @@ class Developers extends React.Component {
         super(props);
         this.state = {
             data: null,
+            isEdit: false
         };
-        this.deleteTodo = this.deleteTodo.bind(this);
+        this.deleteCard = this.deleteCard.bind(this);
+        this.editCard = this.editCard.bind(this);
+        this.saveEdit = this.saveEdit.bind(this);
     }
 
     developer;
 
-    deleteTodo(id) {
+    deleteCard(id) {
         console.log(id)
         fetch('http://localhost:3012/developers/' + id, {
             method: 'DELETE',
         })
             .then(res => res.text()) // or res.json()
             .then(()=>{
+                window.location.reload();
+            })
+    }
+
+    editCard() {
+        this.setState({isEdit: true})
+    }
+
+    saveEdit(id, name, skill) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, skill: skill })
+        };
+        fetch('http://localhost:3012/developers/' + id , requestOptions)
+            .then(() => {
+                this.setState({isEdit: false})
                 window.location.reload();
             })
     }
@@ -52,7 +72,10 @@ class Developers extends React.Component {
                         key={index}
                         id={dev._id}
                         name={dev.name}
-                        onDelete={ this.deleteTodo }
+                        onDelete={ this.deleteCard }
+                        onEdit={ this.editCard }
+                        isEdit = { this.state.isEdit}
+                        saveEdit ={ this.saveEdit }
                         skill={dev.skill}
                     />
                 );
