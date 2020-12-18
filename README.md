@@ -1,5 +1,15 @@
-# Getting Started with Create React App
 
+<h1 align="center">Simple CRUD on react </h1>
+
+
+<img src="./gif/example.gif">
+
+
+# Mongo database on native port(mongodb://localhost:27017)"
+# https://www.mongodb.com/try/download
+### `node server.js`
+
+# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
